@@ -8,7 +8,9 @@ class Application(tk.Frame):
         self.grid()
 
     def create_widgets(self):
-        
+        alphabet_string = string.ascii_lowercase
+        alphabet_list = list(alphabet_string)
+        print(alphabet_list)
 
 
 
