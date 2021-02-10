@@ -1,4 +1,6 @@
 import tkinter as tk
+import string
+import random
 from hangman_goal1 import Hangman_game
 
 class Application(tk.Frame):
@@ -6,6 +8,18 @@ class Application(tk.Frame):
         super().__init__(master)
         self.create_widgets()
         self.grid()
+
+        self.user_guesses = 7
+        self.choose_word()
+        self.guesses()
+
+    def choose_word(self):
+        self.words = []
+        f = open("dictionary.txt")
+        for line in f:
+            line = line.strip()
+            self.words.append(line)
+        self.word = random.choice(self.words)
 
     def create_widgets(self):
         alphabet_string = string.ascii_lowercase
