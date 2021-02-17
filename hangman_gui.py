@@ -1,7 +1,7 @@
 import tkinter as tk
 import string
 import random
-from hangman_goal1 import Hangman_game
+# from hangman_goal1 import Hangman_game
 
 class Application(tk.Frame):
     def __init__ (self, master):
@@ -24,7 +24,19 @@ class Application(tk.Frame):
     def create_widgets(self):
         alphabet_string = string.ascii_lowercase
         alphabet_list = list(alphabet_string)
-        print(alphabet_list)
+        column = 0
+        for letters in alphabet_list[0:13]:
+            self.letter = tk.Button(self, text = letters, command = lambda l=letters: self.button_press(l))
+            self.letter.grid(row = 0, column = column)
+            column += 1
+        column = 0
+        for letters in alphabet_list[13:]:
+            self.letter = tk.Button(self, text = letters, command = self.guesses)
+            self.letter.grid(row = 1, column = column)
+            column += 1
+
+    def button_press(self, letter):
+        print(letter)
 
 
 
@@ -56,3 +68,7 @@ class Application(tk.Frame):
 
                 if self.user_guesses == 0:
                     print ("Play again")
+
+root = tk.Tk()
+app = Application(root)
+root.mainloop()

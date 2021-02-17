@@ -51,4 +51,4 @@ def main():
     print ("Welcome! You are playing hangman. To start, you will have 7 guesses.")
     game = Hangman_game()
     print (game.word)
-main()
+# main()
