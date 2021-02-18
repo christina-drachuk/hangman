@@ -6,12 +6,11 @@ import random
 class Application(tk.Frame):
     def __init__ (self, master):
         super().__init__(master)
-        self.create_widgets()
         self.grid()
-
         self.user_guesses = 7
         self.choose_word()
-        self.guesses()
+        self.create_widgets()
+        # self.guesses()
 
     def choose_word(self):
         self.words = []
@@ -22,20 +21,32 @@ class Application(tk.Frame):
         self.word = random.choice(self.words)
 
     def create_widgets(self):
-        alphabet_string = string.ascii_lowercase
-        alphabet_list = list(alphabet_string)
+        self.letter_buttons = {}
+        # alphabet_string = string.ascii_lowercase
+        # alphabet_list = list(alphabet_string)
         column = 0
-        for letters in alphabet_list[0:13]:
-            self.letter = tk.Button(self, text = letters, command = lambda l=letters: self.button_press(l))
-            self.letter.grid(row = 0, column = column)
+        tk.Label(self, text = "Enter your guess here: ").grid(row = 0, column = 0)
+        self.guess = tk.Entry(self, width = 10)
+        self.guess.grid(row = 0, column = 1)
+        self.enter_bttn = tk.Button(self, text = "Enter", command = self.guesses)
+        self.enter_bttn.grid(row = 0, column = 2)
+        self.underscores = []
+        for letter in self.word:
+            letter = letter.strip()
+            self.underscores.append("_ ")
             column += 1
-        column = 0
-        for letters in alphabet_list[13:]:
-            self.letter = tk.Button(self, text = letters, command = self.guesses)
-            self.letter.grid(row = 1, column = column)
-            column += 1
+        # self.underscores = self.underscores.replace(",", "")
+        y = str(self.underscores)[1:-1]
+        y = y.replace(",", "")
+        y = y.replace("''", "")
+        tk.Label(self, text = y).grid(row = 1, column = 0)
+
+        self.result = tk.Label(self, text = "")
+        self.guesses_left = tk.Label(self, text = "")
 
     def button_press(self, letter):
+        self.button = self.letter_buttons[letter]
+        self.button.destroy()
         print(letter)
 
 
@@ -55,14 +66,12 @@ class Application(tk.Frame):
                     self.letters_left += 1
             
             if self.letters_left == 0:
-                print ("Congrats")
+                self.result["text"] = "Congrats, you guessed correct!"
                 break
 
-            self.guess = input ("Guess a letter: ")
+            self.letters_guessed += self.guess.get()
 
-            self.letters_guessed += self.guess
-
-            if self.guess not in self.word:
+            if self.guess.get() not in self.word:
                 self.user_guesses -= 1
                 print ("Nope, only " + str(self.user_guesses) + " left.")
 
