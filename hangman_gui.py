@@ -10,6 +10,7 @@ class Application(tk.Frame):
         self.user_guesses = 7
         self.choose_word()
         self.create_widgets()
+        self.letters_guessed = ''
         # self.guesses()
 
     def choose_word(self):
@@ -31,43 +32,33 @@ class Application(tk.Frame):
         self.enter_bttn = tk.Button(self, text = "Enter", command = self.guesses)
         self.enter_bttn.grid(row = 0, column = 2)
         self.underscores = []
+        column = 0
         for letter in self.word:
             letter = letter.strip()
-            self.underscores.append("_ ")
+            # tk.Label(self, text = "_ ").grid(row = 1, column = column)
+            self.underscores.append("_")
             column += 1
-        # self.underscores = self.underscores.replace(",", "")
-        y = str(self.underscores)[1:-1]
-        y = y.replace(",", "")
-        y = y.replace("''", "")
-        tk.Label(self, text = y).grid(row = 1, column = 0)
-
-        self.result = tk.Label(self, text = "")
+    
+        y = " ".join(self.underscores)
+        self.result = tk.Label(self, text = y)
+        self.result.grid(row = 1, column = 0, columnspan = 3)
         self.guesses_left = tk.Label(self, text = "")
-
-    def button_press(self, letter):
-        self.button = self.letter_buttons[letter]
-        self.button.destroy()
-        print(letter)
-
-
 
     def guesses(self):
         print (self.word)
-        self.letters_guessed = ''
-
-        while self.user_guesses > 0:
+        
+        
+        if self.user_guesses > 0:
             self.letters_left = 0
-
             for letter in self.word:
                 if letter in self.letters_guessed:
-                    print (letter)
+                    pass
                 else:
                     print ("_")
                     self.letters_left += 1
             
             if self.letters_left == 0:
                 self.result["text"] = "Congrats, you guessed correct!"
-                break
 
             self.letters_guessed += self.guess.get()
 
