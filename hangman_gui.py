@@ -46,17 +46,21 @@ class Application(tk.Frame):
 
     def guesses(self):
         print (self.word)
+        self.letter_list = []
+
+        for char in self.word:
+            self.letter_list.append(char)
         
-        
+        position = 0
+
         if self.user_guesses > 0:
             self.letters_left = 0
             for letter in self.word:
-                if letter in self.letters_guessed:
-                    pass
-                else:
-                    print ("_")
+                if letter not in self.letters_guessed:
+                    self.letter_list[position] = ('_')
+                    # print ("_")
                     self.letters_left += 1
-            
+                position += 1
             if self.letters_left == 0:
                 self.result["text"] = "Congrats, you guessed correct!"
 
