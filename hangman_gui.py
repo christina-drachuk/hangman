@@ -45,6 +45,8 @@ class Application(tk.Frame):
         self.guesses_left = tk.Label(self, text = "")
 
     def guesses(self):
+        self.letters_guessed += self.guess.get()
+        self.guess.delete(0, tk.END)
         print (self.word)
         self.letter_list = []
 
@@ -53,18 +55,20 @@ class Application(tk.Frame):
         
         position = 0
 
-        if self.user_guesses > 0:
+        if self.user_guesses > 0: # show how many guesses left
             self.letters_left = 0
             for letter in self.word:
+                self.letter_list.append(char) # try to condense into one list
                 if letter not in self.letters_guessed:
                     self.letter_list[position] = ('_')
                     # print ("_")
                     self.letters_left += 1
                 position += 1
+            y = " ".join(self.letter_list)
+            self.result["text"] = y
+
             if self.letters_left == 0:
                 self.result["text"] = "Congrats, you guessed correct!"
-
-            self.letters_guessed += self.guess.get()
 
             if self.guess.get() not in self.word:
                 self.user_guesses -= 1
