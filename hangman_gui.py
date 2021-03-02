@@ -11,6 +11,7 @@ class Application(tk.Frame):
         self.choose_word()
         self.create_widgets()
         self.letters_guessed = ''
+        self.all_letters = ''
         # self.guesses()
 
     def choose_word(self):
@@ -43,39 +44,59 @@ class Application(tk.Frame):
         self.result = tk.Label(self, text = y)
         self.result.grid(row = 1, column = 0, columnspan = 3)
         self.guesses_left = tk.Label(self, text = "")
+        self.guess_message = tk.Label(self, text = "")
+        self.guess_message.grid(row = 3, column = 0, columnspan = 3)
+        self.guess_update = tk.Label(self, text = "")
+        self.guess_update.grid(row = 2, column = 0, columnspan = 3)
 
     def guesses(self):
-        self.letters_guessed += self.guess.get()
-        self.guess.delete(0, tk.END)
-        print (self.word)
-        self.letter_list = []
+        # self.letters_guessed += self.guess.get()
+        self.letters_guessed = self.guess.get()
+        self.all_letters += self.guess.get()
+        # for char in self.letters_guessed: # move into if statement, make a list for letters guessed and a current letter variable
+        #     self.letters_guessed_list = []
+        #     self.letters_guessed_list.append(self.letters_guessed) # this part has to be moved to before the entry is cleared
+        #     print(self.letters_guessed_list)
+        for char in self.all_letters:
+            if char not in self.word:
+                self.user_guesses -= 1
+                self.guess_message["text"] = "Nope, only " + str(self.user_guesses) + " guesses left."
+        print(self.all_letters)
+        print(self.letters_guessed)
+        self.guess.delete(0, tk.END) # this has to occur after the letter is appended to the list
 
-        for char in self.word:
-            self.letter_list.append(char)
+        
+        print (self.word) # TODO remove this!!!
+        self.letter_list = []
         
         position = 0
 
-        if self.user_guesses > 0: # show how many guesses left
+        if self.user_guesses > 0: # TODO show how many guesses left
+            self.guess_update["text"] = "Guesses: " + str(self.user_guesses)
             self.letters_left = 0
             for letter in self.word:
-                self.letter_list.append(char) # try to condense into one list
+                self.letter_list.append(letter)
                 if letter not in self.letters_guessed:
                     self.letter_list[position] = ('_')
                     # print ("_")
-                    self.letters_left += 1
+                    self.letters_left += 1 
                 position += 1
             y = " ".join(self.letter_list)
             self.result["text"] = y
+        
+        # TODO add the following into a loop and make it check if the letter is not in the word
+        # at all. If this is the case, subtract a guess from the user and draw a body part, and raise
+        # the message.
+        # if self.guess.get() not in self.word:
+        #     self.user_guesses -= 1
+        #     self.guess_message["text"] = "Nope, only " + str(self.user_guesses) + " left."
+                
+            
+        if self.letters_left == 0:
+            self.guess_message["text"] = "Congrats, you guessed correct!"
 
-            if self.letters_left == 0:
-                self.result["text"] = "Congrats, you guessed correct!"
-
-            if self.guess.get() not in self.word:
-                self.user_guesses -= 1
-                print ("Nope, only " + str(self.user_guesses) + " left.")
-
-                if self.user_guesses == 0:
-                    print ("Play again")
+        if self.user_guesses == 0:
+            print ("Play again")
 
 root = tk.Tk()
 app = Application(root)
