@@ -13,7 +13,7 @@ class Application(tk.Frame):
         self.letters_guessed = ''
         self.all_letters = ''
 
-        # self.guesses()
+        self.guesses()
 
     def choose_word(self):
         self.words = []
@@ -111,6 +111,7 @@ class Application(tk.Frame):
             self.guess_message["text"] = "Nice Try"
             self.guess_update["text"] = "Guesses: 0"
  
+
 root = tk.Tk()
 root.geometry("300x200")
 app = Application(root)
