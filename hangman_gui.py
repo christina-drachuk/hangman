@@ -9,7 +9,7 @@ class Application(tk.Frame):
 
         self.grid()
 
-        self.user_guesses = 7
+        self.user_guesses = 10
 
         self.choose_word()
         self.create_widgets()
@@ -78,7 +78,20 @@ class Application(tk.Frame):
         else:
             self.guess_message["text"] = "Keep guessing!"
     
-        if self.user_guesses == 6:
+
+        if self.user_guesses == 9:
+            canvas.create_line(230, 300, 270, 300, fill="black")
+
+        elif self.user_guesses == 8:
+            canvas.create_line(250, 15, 250, 300, fill="black")
+            canvas.create_line(230, 300, 270, 300, fill="black")
+
+        elif self.user_guesses == 7:
+            canvas.create_line(250, 15, 250, 300, fill="black")
+            canvas.create_line(230, 300, 270, 300, fill="black")
+            canvas.create_line(110, 15, 250, 15, fill="black")
+
+        elif self.user_guesses == 6:
             canvas.create_line(250, 15, 250, 300, fill="black")
             canvas.create_line(110, 15, 110, 65, fill="black")
             canvas.create_line(110, 15, 250, 15, fill="black")
@@ -186,22 +199,22 @@ class Application(tk.Frame):
             self.enter_bttn.destroy()
             self.intro.destroy()
 
-            self.exit_button = tk.Button(self, text = "Exit", command = self.root_destroy) 
-            self.exit_button.grid(row = 0, column = 0)
+            self.exit_button = tk.Button(self, text = "Exit", command = self.root_destroy, width = 10) 
+            self.exit_button.grid(row = 0, column = 0, sticky = tk.W)
 
-            self.play_again = tk.Button(self, text = "Play Again", command = self.restart)
-            self.play_again.grid(row = 0, column = 1)
+            self.play_again = tk.Button(self, text = "Play Again", command = self.restart, width = 10)
+            self.play_again.grid(row = 0, column = 1, sticky = tk.W, columnspan = 3)
 
         if self.user_guesses == 0:
             self.guess.destroy()
             self.enter_bttn.destroy()
             self.intro.destroy()
 
-            self.exit_button = tk.Button(self, text = "Exit", command = self.root_destroy) 
-            self.exit_button.grid(row = 0, column = 0)
+            self.exit_button = tk.Button(self, text = "Exit", command = self.root_destroy, width = 10) 
+            self.exit_button.grid(row = 0, column = 0, sticky = tk.W)
 
-            self.play_again = tk.Button(self, text = "Play Again", command = self.restart)
-            self.play_again.grid(row = 0, column = 1)
+            self.play_again = tk.Button(self, text = "Play Again", command = self.restart, width = 10)
+            self.play_again.grid(row = 0, column = 1, sticky = tk.W, columnspan = 3)
 
             self.guess_message["text"] = "Nice Try"
             self.guess_update["text"] = "Guesses: 0"
