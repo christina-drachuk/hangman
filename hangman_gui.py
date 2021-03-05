@@ -1,3 +1,4 @@
+# TODO change definitions for presentation, go through code + clean, change range, delete comments, paste new definitions.
 import tkinter as tk
 import string
 import random
@@ -10,33 +11,38 @@ class Application(tk.Frame):
         self.grid()
 
         self.user_guesses = 10
+        self.amount = 0
 
         self.choose_word()
         self.create_widgets()
 
         self.letters_guessed = ''
-        self.all_letters = ''
+        self.current = ''
 
+        # self.definition()
         self.guesses()
+        
     
     def choose_word(self):
         self.words = []
+        self.random_num = random.randrange(0, 1)
         f = open("dictionary.txt")
-
+        
         for line in f:
             line = line.strip()
             self.words.append(line)
-        self.word = random.choice(self.words)
+            
+        self.word = self.words[self.random_num]
 
     def create_widgets(self):
         self.intro = tk.Label(self, text = "Enter your guess here (lowercase only): ")
         self.intro.grid(row = 0, column = 0)
 
         self.guess = tk.Entry(self, width = 10)
-        self.guess.grid(row = 0, column = 1)
+        self.guess.grid(row = 0, column = 1, sticky = tk.NSEW)
 
         self.enter_bttn = tk.Button(self, text = "Enter", command = self.guesses)
-        self.enter_bttn.grid(row = 0, column = 2)
+        self.enter_bttn.grid(row = 1, column = 1, sticky = tk.NSEW)
         self.underscores = []
 
         column = 0
@@ -49,12 +55,11 @@ class Application(tk.Frame):
         self.result = tk.Label(self, text = y)
         self.result.grid(row = 1, column = 0, columnspan = 3)
 
-        self.guesses_left = tk.Label(self, text = "")
         self.guess_message = tk.Label(self, text = "")
-        self.guess_message.grid(row = 3, column = 0, columnspan = 3)
+        self.guess_message.grid(row = 2, column = 0, columnspan = 3)
 
         self.guess_update = tk.Label(self, text = "")
-        self.guess_update.grid(row = 2, column = 0, columnspan = 3)
+        self.guess_update.grid(row = 3, column = 0, columnspan = 3)
 
         self.final_word = tk.Label(self, text = "")
         self.final_word.grid(row = 4, column = 0, columnspan = 3)
@@ -62,13 +67,22 @@ class Application(tk.Frame):
         self.chars_guessed_label = tk.Label(self, text = "")
         self.chars_guessed_label.grid(row = 5, column = 0, columnspan = 3)
 
+        self.definitions_text = tk.Label(self, text = "")
+        self.definitions_text.grid(row = 6, column = 0, columnspan = 3)
+
+        self.def_buttons = tk.Button(self, text = "Definition", command = self.definition)
+        self.def_buttons.grid(row = 2, column = 1)
+
     def guesses(self):
         canvas = tk.Canvas(self, height = 350, width = 350)
-        self.letters_guessed += self.guess.get()
         self.current = self.guess.get()
-        self.chars_guessed_label["text"] = "Letters you've guessed: " + str(self.letters_guessed)
+        if self.current not in self.letters_guessed: 
+            self.letters_guessed += self.guess.get()
 
+        self.chars_guessed_label["text"] = "Letters you've guessed: " + str(self.letters_guessed)
+            
         self.guess.delete(0, tk.END)
+        
 
         if self.current not in self.word and self.user_guesses > 0:
             self.user_guesses -= 1
@@ -222,7 +236,18 @@ class Application(tk.Frame):
 
             self.canvas = canvas
     
-        canvas.grid(row = 6, column = 0)
+        canvas.grid(row = 8, column = 0)
+    
+    def definition(self):
+        self.def_buttons.destroy()
+        self.definitions = []
+        a = open("definitions.txt")
+        
+        for line in a:
+            line = line.strip()
+            self.definitions.append(line)
+        self.definitions_text["text"] = "Definition: " + self.definitions[self.random_num]
+        a.close()
 
     def root_destroy(self):
         root.destroy()
