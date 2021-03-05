@@ -72,7 +72,6 @@ duplex
 embezzle
 equip
 fishhook
-fixable
 fuchsia
 foxglove
 funny
@@ -92,7 +91,6 @@ jaywalk
 jazzy
 jelly
 jigsaw
-jiujitsu
 jukebox
 juicy
 kayak
@@ -103,7 +101,7 @@ kiwi
 khaki
 luxury
 lucky
-lank
+lanky
 lymph
 lambda
 matrix
@@ -154,7 +152,7 @@ waltz
 wave
 waxy
 whiskey
-wheazy
+wheeze
 whomever
 witchcraft
 wizard
@@ -164,7 +162,7 @@ yachtsman
 yippee
 youthful
 yummy
-yoked
+yoke
 zigzag
 zilch
 zodiac

@@ -1,4 +1,3 @@
-# TODO change definitions for presentation, go through code + clean, change range, delete comments, paste new definitions.
 import tkinter as tk
 import string
 import random
@@ -19,13 +18,11 @@ class Application(tk.Frame):
         self.letters_guessed = ''
         self.current = ''
 
-        # self.definition()
-        self.guesses()
-        
+        self.guesses()  
     
     def choose_word(self):
         self.words = []
-        self.random_num = random.randrange(0, 1)
+        self.random_num = random.randrange(0, 172)
         f = open("dictionary.txt")
         
         for line in f:
@@ -82,7 +79,6 @@ class Application(tk.Frame):
         self.chars_guessed_label["text"] = "Letters you've guessed: " + str(self.letters_guessed)
             
         self.guess.delete(0, tk.END)
-        
 
         if self.current not in self.word and self.user_guesses > 0:
             self.user_guesses -= 1
@@ -91,7 +87,6 @@ class Application(tk.Frame):
             pass
         else:
             self.guess_message["text"] = "Keep guessing!"
-    
 
         if self.user_guesses == 9:
             canvas.create_line(230, 300, 270, 300, fill="black")
