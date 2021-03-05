@@ -1,3 +1,4 @@
+# TODO change definitions for presentation, go through code + clean, change range, delete comments, paste new definitions.
 import tkinter as tk
 import string
 import random
@@ -231,7 +232,7 @@ class Application(tk.Frame):
 
             self.canvas = canvas
     
-        canvas.grid(row = 8, column = 0)
+        canvas.grid(row = 7, column = 0)
     
     def definition(self):
         self.def_buttons.destroy()
